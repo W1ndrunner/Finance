@@ -15,7 +15,10 @@ with open("MSFT.csv", 'r') as file:
 del Dates[0]
 del Prices[0]
 
-SMA = []
-EMA = []
+SMA1 = []
+SMA2 = []
+
+EMA1 = []
+EMA2 = []
 
 
