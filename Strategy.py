@@ -1,20 +1,23 @@
 import csv
 
-# Arrays for data needed
-Dates = []
-Prices = []
-
+# Array for objects
+Data = []
+class Info:
+    def __init__(self, date, price):
+        self.date = date
+        self.price = price
 # Reading file and storing data in arrays
 with open("MSFT.csv", 'r') as file:
     csvreader = csv.reader(file)
     for row in csvreader:
-        Dates.append(row[0])
-        Prices.append(row[4])
+        tempObj = Info(row[0], row[4])
+        Data.append(tempObj)
 
 # Deleting Names of columns
-del Dates[0]
-del Prices[0]
+del Data[0]
 
+
+#Arrays to store SMA and EMA objects
 SMA1 = []
 SMA2 = []
 
