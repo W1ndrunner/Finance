@@ -25,12 +25,26 @@ with open("MSFT.csv", 'r') as file:
 # Deleting names of columns
 del Data[0]
 
-#Arrays to store SMA and EMA objects
+# Arrays to store SMA and EMA objects
 SMA1 = []
 SMA2 = []
 
 EMA1 = []
 EMA2 = []
 
+# Calculates SMA
 def CalcSMA(day):
-    
+    counter = day
+    days = []
+    for i in range(0,day):
+        days.append(Data[i])
+    while Data[counter] != None:
+        total = 0
+        for ele in days:
+            total += ele.getPrice()
+        SMA = total/day
+        temp = Info(Data[day-1].getDate(), SMA)
+        SMA1.append(temp)
+        del days[0]
+        days.append(Data[counter])
+        counter += 1
