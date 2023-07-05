@@ -51,10 +51,30 @@ def CalcSMA(day, selector):
             SMA2.append(temp)
         else:
             tempSMA.append(temp)
-            counter = len(Data)
+            break ## Calculating only one SMA to start the EMA calculation
         del days[0]
         days.append(Data[counter])
         counter += 1
 
-CalcSMA(10, 1)
-print(SMA1[0].getPrice())
+# CalcSMA(50, 3)
+# print(tempSMA[0].getPrice())
+
+# Calculates EMA and stores the results as objects
+def CalcEMA(day, selector):
+    weight = 2 / (day + 1)
+    counter = 1
+    counter2 = day
+    CalcSMA(day, 3)
+    if selector == 1:
+        EMA1[0] = tempSMA[0]
+    else:
+        EMA2[0] = tempSMA[0]
+    while counter2 < len(Data):
+        EMA = (Data[counter2].getPrice() * weight) + EMA1[counter-1] * (1 - weight)
+        temp = Info(Data[counter2].getDate(), EMA)
+        if selector == 1:
+            EMA1[counter] = temp
+        else:
+            EMA2[counter] = temp
+        counter += 1
+        counter2 += 1
