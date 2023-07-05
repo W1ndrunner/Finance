@@ -29,10 +29,11 @@ with open("MSFT.csv", 'r') as file:
 SMA1 = []
 SMA2 = []
 
+tempSMA = []
 EMA1 = []
 EMA2 = []
 
-# Calculates SMA
+# Calculates SMA and stores the results as objects
 def CalcSMA(day, selector):
     counter = day
     days = []
@@ -46,8 +47,11 @@ def CalcSMA(day, selector):
         temp = Info(Data[day-1].getDate(), SMA)
         if selector == 1:
             SMA1.append(temp)
+        elif selector == 2:
+            SMA2.append(temp)
         else:
-            SMA2.append(temp)    
+            tempSMA.append(temp)
+            counter = len(Data)
         del days[0]
         days.append(Data[counter])
         counter += 1
