@@ -56,8 +56,6 @@ def CalcSMA(day, selector):
         days.append(Data[counter])
         counter += 1
 
-# CalcSMA(50, 3)
-# print(tempSMA[0].getPrice())
 
 # Calculates EMA and stores the results as objects
 def CalcEMA(day, selector):
@@ -68,7 +66,7 @@ def CalcEMA(day, selector):
     if selector == 1:
         EMA1.append(tempSMA[0])
     else:
-        EMA2[0] = tempSMA[0]
+        EMA2.append(tempSMA[0])
     while counter2 < len(Data):
         EMA = (Data[counter2].getPrice() * weight) + EMA1[counter-1].getPrice() * (1 - weight)
         temp = Info(Data[counter2].getDate(), EMA)
@@ -79,5 +77,19 @@ def CalcEMA(day, selector):
         counter += 1
         counter2 += 1
 
-CalcEMA(10, 1)
-print(EMA1[2].getPrice())
+CalcEMA(50, 1)
+CalcEMA(200, 2)
+x = 1
+print(EMA2[x].getDate())
+print(EMA1[x+150].getDate())
+## Plotting the graph
+def plotter():
+    Dates = []
+    EMA1Points = []
+    EMA2Points = []
+    counter = 0
+    for ele in EMA2:
+        Dates.append(ele.getDate())
+        EMA2Points.append(ele.getPrice())
+    
+
