@@ -66,15 +66,18 @@ def CalcEMA(day, selector):
     counter2 = day
     CalcSMA(day, 3)
     if selector == 1:
-        EMA1[0] = tempSMA[0]
+        EMA1.append(tempSMA[0])
     else:
         EMA2[0] = tempSMA[0]
     while counter2 < len(Data):
-        EMA = (Data[counter2].getPrice() * weight) + EMA1[counter-1] * (1 - weight)
+        EMA = (Data[counter2].getPrice() * weight) + EMA1[counter-1].getPrice() * (1 - weight)
         temp = Info(Data[counter2].getDate(), EMA)
         if selector == 1:
-            EMA1[counter] = temp
+            EMA1.append(temp)
         else:
-            EMA2[counter] = temp
+            EMA2.append(temp)
         counter += 1
         counter2 += 1
+
+CalcEMA(10, 1)
+print(EMA1[2].getPrice())
