@@ -1,4 +1,8 @@
 import csv
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from datetime import datetime
 
 # Array for objects
 Data = []
@@ -64,9 +68,9 @@ def CalcEMA(day, selector):
     counter2 = day
     CalcSMA(day, 3)
     if selector == 1:
-        EMA1.append(tempSMA[0])
+        EMA1.append(tempSMA[len(tempSMA)-1])
     else:
-        EMA2.append(tempSMA[0])
+        EMA2.append(tempSMA[len(tempSMA)-1])
     while counter2 < len(Data):
         EMA = (Data[counter2].getPrice() * weight) + EMA1[counter-1].getPrice() * (1 - weight)
         temp = Info(Data[counter2].getDate(), EMA)
@@ -79,17 +83,23 @@ def CalcEMA(day, selector):
 
 CalcEMA(50, 1)
 CalcEMA(200, 2)
-x = 1
-print(EMA2[x].getDate())
-print(EMA1[x+150].getDate())
-## Plotting the graph
+
+## Plots the graph
 def plotter():
     Dates = []
     EMA1Points = []
     EMA2Points = []
-    counter = 0
     for ele in EMA2:
         Dates.append(ele.getDate())
         EMA2Points.append(ele.getPrice())
-    
+    for i in range(150, len(EMA1)):
+        EMA1Points.append(EMA1[i].getPrice())
+    Dates2 = pd.to_datetime(Dates)
+    plt.plot(Dates2, EMA1Points, Dates2, EMA2Points)
+    plt.title('Moving Averages', fontweight="bold")
+    plt.xlabel('Date of Closing')
+    plt.ylabel('Moving Average ')
+    plt.show()
+
+plotter()
 
